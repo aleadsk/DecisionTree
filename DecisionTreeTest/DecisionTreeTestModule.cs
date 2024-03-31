@@ -53,6 +53,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Uow;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Modularity.PlugIns;
 
 namespace DecisionTreeTest;
 
@@ -165,6 +166,7 @@ public class DecisionTreeTestModule : AbpModule
         ConfigureVirtualFiles(hostingEnvironment);
         ConfigureLocalizationServices();
         ConfigureSwaggerServices(context.Services);
+        ConfigureServices(context.Services);
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureBlazorise(context);
@@ -253,7 +255,13 @@ public class DecisionTreeTestModule : AbpModule
         {
             options.MapCodeNamespace("DecisionTreeTest", typeof(DecisionTreeTestResource));
         });
-    }
+    }        
+    
+    public void ConfigureServices(IServiceCollection services) {
+            services.AddApplication<TextPlugIn.TextPlugInModule>(options => {
+                options.PlugInSources.AddFolder(@"C:\Users\aless\OneDrive\Área de Trabalho\DecisionTree\Temp\TextPlugIn", SearchOption.AllDirectories);
+            });
+        }
 
     private void ConfigureVirtualFiles(IWebHostEnvironment hostingEnvironment)
     {

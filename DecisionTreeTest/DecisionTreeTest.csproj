@@ -101,4 +101,8 @@
     <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Temp\TextPlugIn\TextPlugIn.csproj" />
+  </ItemGroup>
+
 </Project>
