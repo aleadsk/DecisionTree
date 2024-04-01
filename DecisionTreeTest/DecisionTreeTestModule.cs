@@ -166,7 +166,7 @@ public class DecisionTreeTestModule : AbpModule
         ConfigureAutoMapper(context);
         ConfigureVirtualFiles(hostingEnvironment);
         ConfigureLocalizationServices();
-        ConfigureServices(context.Services);
+        ConfigureTextPlugInServices(context.Services);
         ConfigureSwaggerServices(context.Services);
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
@@ -258,7 +258,7 @@ public class DecisionTreeTestModule : AbpModule
         });
     }        
     
-    private void ConfigureServices(IServiceCollection services) {
+    private void ConfigureTextPlugInServices(IServiceCollection services) {
         services.AddApplication<TextWebPlugInModule>(options => {
             options.PlugInSources.AddFolder(@"C:\Users\aless\OneDrive\Área de Trabalho\DecisionTree\Temp\TextWebPlugIn", SearchOption.AllDirectories);
         });
