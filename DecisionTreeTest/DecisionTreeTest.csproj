@@ -102,7 +102,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Temp\TextPlugIn\TextPlugIn.csproj" />
+    <!-- <ProjectReference Include="..\Temp\TextPlugIn\TextPlugIn.csproj" /> -->
+    <ProjectReference Include="..\Temp\TextWebPlugIn\TextWebPlugIn.csproj" />
   </ItemGroup>
 
 </Project>
