@@ -166,7 +166,7 @@ public class DecisionTreeTestModule : AbpModule
         ConfigureAutoMapper(context);
         ConfigureVirtualFiles(hostingEnvironment);
         ConfigureLocalizationServices();
-        ConfigureTextPlugInServices(context.Services);
+        //ConfigureTextPlugInServices(context.Services);
         ConfigureSwaggerServices(context.Services);
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
@@ -338,7 +338,7 @@ public class DecisionTreeTestModule : AbpModule
 
         Configure<AbpUnitOfWorkDefaultOptions>(options =>
         {
-            options.TransactionBehavior = UnitOfWorkTransactionBehavior.Enabled;
+            options.TransactionBehavior = UnitOfWorkTransactionBehavior.Disabled;
         });
     }
 

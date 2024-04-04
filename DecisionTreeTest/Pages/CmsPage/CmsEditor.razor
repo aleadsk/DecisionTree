@@ -1,0 +1,28 @@
+﻿@page "/editor"
+
+@using TinyMCE.Blazor
+@using DecisionTreeTest.Services.Dtos;
+@using DecisionTreeTest.Interfaces.Service;
+
+@inject ICmsAppService _cmsAppService;
+
+<h3>Create your text</h3>
+<Divider />
+<TextEdit @bind-Text="cmsEntityDto.Name" Placeholder="Choose your title" />
+<Divider />
+<Editor ApiKey="s38enmy9tc1mypcddohajut7rcaaau0en8ewgnd574l5szbu"
+		@bind-Value="cmsEntityDto.Description" />
+<Divider />
+<button class="btn btn-primary" @onclick=SavePage>Save</button>
+
+@code {
+	private CmsEntityDto cmsEntityDto = new();
+
+	protected override async Task OnInitializedAsync() {
+		await base.OnInitializedAsync();
+	}
+
+	private void SavePage() {
+		_cmsAppService.InsertOrUpdateCMSContent(cmsEntityDto);
+	}
+}

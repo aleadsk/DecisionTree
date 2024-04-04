@@ -1,4 +1,9 @@
+using Autofac.Core;
 using DecisionTreeTest.Data;
+using DecisionTreeTest.Infrastructure;
+using DecisionTreeTest.Interfaces.Repository;
+using DecisionTreeTest.Interfaces.Service;
+using DecisionTreeTest.Services;
 using Serilog;
 using Serilog.Events;
 using Volo.Abp.Data;
@@ -28,11 +33,17 @@ public class Program
         }
 
         Log.Logger = loggerConfiguration.CreateLogger();
-
-        try
-        {
+		try
+		{
             var builder = WebApplication.CreateBuilder(args);
-            builder.Host.AddAppSettingsSecretsJson()
+			builder.Services.AddMongoDbContext<DecisionTreeTestDbContext>(options => {
+				options.AddDefaultRepositories(); 
+                options.AddDefaultRepositories(includeAllEntities: true);
+			});
+			builder.Services.AddApplicationInsightsTelemetry();
+            builder.Services.AddScoped<ICmsAppService, CmsAppService>();
+			builder.Services.AddScoped<ICmsRepository, CmsRepository>();
+			builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
             if (IsMigrateDatabase(args))

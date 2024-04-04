@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecisionTreeTest", "Decisio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{B4FCE16E-FA95-42FF-BE8C-F4D9E4EE90E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextPlugIn", "Temp\TextPlugIn\TextPlugIn.csproj", "{829B81B7-EEB5-49B4-B8EB-E02B0C68ED0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextPlugIn", "Temp\TextPlugIn\TextPlugIn.csproj", "{829B81B7-EEB5-49B4-B8EB-E02B0C68ED0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextWebPlugIn", "Temp\TextWebPlugIn\TextWebPlugIn.csproj", "{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextWebPlugIn", "Temp\TextWebPlugIn\TextWebPlugIn.csproj", "{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,11 +33,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {63E2660C-C1D9-4768-90FD-289F36581842}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{829B81B7-EEB5-49B4-B8EB-E02B0C68ED0A} = {B4FCE16E-FA95-42FF-BE8C-F4D9E4EE90E6}
 		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA} = {B4FCE16E-FA95-42FF-BE8C-F4D9E4EE90E6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63E2660C-C1D9-4768-90FD-289F36581842}
 	EndGlobalSection
 EndGlobal

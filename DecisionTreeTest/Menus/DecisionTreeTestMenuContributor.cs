@@ -1,6 +1,4 @@
 ﻿using DecisionTreeTest.Localization;
-using Volo.Abp.Identity.Blazor;
-using Volo.Abp.SettingManagement.Blazor.Menus;
 using Volo.Abp.TenantManagement.Blazor.Navigation;
 using Volo.Abp.UI.Navigation;
 
@@ -8,16 +6,13 @@ namespace DecisionTreeTest.Menus;
 
 public class DecisionTreeTestMenuContributor : IMenuContributor
 {
-    public async Task ConfigureMenuAsync(MenuConfigurationContext context)
-    {
-        if (context.Menu.Name == StandardMenus.Main)
-        {
+    public async Task ConfigureMenuAsync(MenuConfigurationContext context) {
+        if (context.Menu.Name == StandardMenus.Main) {
             await ConfigureMainMenuAsync(context);
         }
     }
 
-    private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
-    {
+    private Task ConfigureMainMenuAsync(MenuConfigurationContext context) {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<DecisionTreeTestResource>();
 
@@ -31,13 +26,22 @@ public class DecisionTreeTestMenuContributor : IMenuContributor
                 order: 0
             )
         );
+        
+        context.Menu.Items.Insert(
+			1,
+			new ApplicationMenuItem(
+				DecisionTreeTestMenus.Editor,
+				l["Menu:Editor"],
+				"/editor",
+				icon: "fas fa-home",
+				order: 1
+			)
+		);
 
-        if (DecisionTreeTestModule.IsMultiTenant)
-        {
+		if (DecisionTreeTestModule.IsMultiTenant) {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
         }
-        else
-        {
+        else {
             administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
         }
 
