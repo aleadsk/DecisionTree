@@ -6,7 +6,9 @@ using DecisionTreeTest.Interfaces.Service;
 using DecisionTreeTest.Services;
 using Serilog;
 using Serilog.Events;
+using TextWebPlugIn;
 using Volo.Abp.Data;
+using Volo.Abp.Modularity.PlugIns;
 
 namespace DecisionTreeTest;
 
@@ -36,6 +38,9 @@ public class Program
 		try
 		{
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddApplication<DecisionTreeTestModule>(options => {
+				options.PlugInSources.AddFolder(@"C:\Users\aless\OneDrive\Área de Trabalho\DecisionTree\Temp\TextWebPlugIn", SearchOption.AllDirectories);
+			});
 			builder.Services.AddMongoDbContext<DecisionTreeTestDbContext>(options => {
 				options.AddDefaultRepositories(); 
                 options.AddDefaultRepositories(includeAllEntities: true);
@@ -50,17 +55,22 @@ public class Program
             {
                 builder.Services.AddDataMigrationEnvironment();
             }
-            await builder.AddApplicationAsync<DecisionTreeTestModule>();
+            //await builder.AddApplicationAsync<DecisionTreeTestModule>();
             var app = builder.Build();
-            await app.InitializeApplicationAsync();
+            await app.InitializeApplicationAsync(); 
 
-            if (IsMigrateDatabase(args))
+			if (IsMigrateDatabase(args))
             {
                 await app.Services.GetRequiredService<DecisionTreeTestDbMigrationService>().MigrateAsync();
                 return 0;
-            }
+			}
 
-            Log.Information("Starting DecisionTreeTest.");
+			app.Use(next => context => {
+				context.Request.Headers.Remove("RequestVerificationToken");
+				return next(context);
+			});
+
+			Log.Information("Starting DecisionTreeTest.");
             await app.RunAsync();
             return 0;
         }

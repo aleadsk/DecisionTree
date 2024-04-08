@@ -166,7 +166,6 @@ public class DecisionTreeTestModule : AbpModule
         ConfigureAutoMapper(context);
         ConfigureVirtualFiles(hostingEnvironment);
         ConfigureLocalizationServices();
-        //ConfigureTextPlugInServices(context.Services);
         ConfigureSwaggerServices(context.Services);
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
@@ -256,13 +255,7 @@ public class DecisionTreeTestModule : AbpModule
         {
             options.MapCodeNamespace("DecisionTreeTest", typeof(DecisionTreeTestResource));
         });
-    }        
-    
-    private void ConfigureTextPlugInServices(IServiceCollection services) {
-        services.AddApplication<TextWebPlugInModule>(options => {
-            options.PlugInSources.AddFolder(@"C:\Users\aless\OneDrive\Área de Trabalho\DecisionTree\Temp\TextWebPlugIn", SearchOption.AllDirectories);
-        });
-    }
+    }   
 
     private void ConfigureVirtualFiles(IWebHostEnvironment hostingEnvironment)
     {
@@ -362,8 +355,15 @@ public class DecisionTreeTestModule : AbpModule
         app.UseHttpsRedirection();
         app.UseCorrelationId();
         app.UseStaticFiles();
-        app.UseRouting();
-        app.UseAuthentication();
+        app.UseRouting(); 
+  //      app.UseEndpoints(endpoints => {
+		//	endpoints.MapRazorPages();
+		//	endpoints.MapFallbackToPage("/_Host");
+		//	endpoints.MapFallbackToFile("index.html");
+		//	endpoints.MapFallbackToPage("/_NotFound");
+		//	endpoints.MapFallbackToPage("/teste/teste"); // Adicione esta linha
+		//});
+		app.UseAuthentication();
         app.UseAbpOpenIddictValidation();
 
         if (IsMultiTenant)

@@ -1,7 +1,21 @@
 ﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpersEx
+@addTagHelper *, TextWebPlugIn
+
 @model TextWebPlugIn.Pages.MainPageModel
 
-<h1>Welcome to my plug-in page</h1>
-<p>This page is located inside a plug-in module! :)</p>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            Welcome Editor Text
+        </h5>
+    </div>
+    <div class="card-body">
+        Please, create many text by Editor.
+    </div>
+</div>
 
-@{ }
+@foreach (var cmsViewModel in Model.cmsViewModelList) {
+    @cmsViewModel.Name;
+}

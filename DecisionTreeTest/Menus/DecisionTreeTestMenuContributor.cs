@@ -21,7 +21,7 @@ public class DecisionTreeTestMenuContributor : IMenuContributor
             new ApplicationMenuItem(
                 DecisionTreeTestMenus.Home,
                 l["Menu:Home"],
-                "/",
+                "/mainpage",
                 icon: "fas fa-home",
                 order: 0
             )
@@ -32,7 +32,7 @@ public class DecisionTreeTestMenuContributor : IMenuContributor
 			new ApplicationMenuItem(
 				DecisionTreeTestMenus.Editor,
 				l["Menu:Editor"],
-				"/editor",
+				"/editors/editor",
 				icon: "fas fa-home",
 				order: 1
 			)
