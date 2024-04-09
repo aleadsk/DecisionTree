@@ -15,7 +15,18 @@
         Please, create many text by Editor.
     </div>
 </div>
-
-@foreach (var cmsViewModel in Model.CmsViewModelList) {
-    @cmsViewModel.Name;
-}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            Choose your text to edit or create a new text:
+        </h5>
+    </div>
+    <div class="card-body">
+        @foreach (var cmsViewModel in Model.CmsViewModelList) {
+            <div>
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <a href="/Editors/Editor/@cmsViewModel.Id">@cmsViewModel.Name</a>
+            </div>
+        }
+    </div>
+</div>

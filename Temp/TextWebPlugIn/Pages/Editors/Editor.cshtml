@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id?}"
 @using TextWebPlugIn.Pages.Editors
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpersEx
@@ -6,31 +6,62 @@
 
 @model EditorModel
 
+@{
+    var result = Model;
+}
+
 <form method="post" id="editorForm" asp-page="Editor">
-    <input type="hidden" name="Id" asp-for="CmsViewModel.Id" value="" id="CmsViewModel_Id" />
-    <label for="CmsViewModel_Name">Title</label>
-    <input type="text" asp-for="CmsViewModel.Name" id="CmsViewModel_Name" value="@Model.CmsViewModel.Name" onchange="getValues()" />
+    <input type="hidden" name="CmsViewModel.Id" asp-for="CmsViewModel.Id"
+           value="@Model.CmsViewModel.Id" id="CmsViewModel_Id" />
 
-    <label for="CmsViewModel_Description">Description</label>
-    <textarea id="CmsViewModel_Description" asp-for="CmsViewModel.Description" value="" onchange="getValues()"></textarea>
-
-    <button id="submitButton" type="submit">Submit</button>
+    <div class="row" style="display: flex;">
+        <div class="col-1" style="width: 100%">
+            <label>Title</label>
+        </div>
+        <div class="col-1" style="width: 100%">
+            <input type="text" style="width: 100%" name="CmsViewModel.Name"
+                asp-for="CmsViewModel.Name" id="CmsViewModel_Name" 
+                value="@Model.CmsViewModel.Name" />
+        </div>
+    </div>
+    <div class="row" style="display: flex; margin-top: 20px;">
+        <div class="col-1" style="width: 100%">
+            <label for="CmsViewModel_Description">Description</label>
+        </div>
+        <div class="col-1" style="width: 100%">
+            <textarea id="CmsViewModel_Description" asp-for="CmsViewModel.Description" name="CmsViewModel.Description"
+                      value="@Model.CmsViewModel.Description" onchange="getValues()"></textarea>
+        </div>
+    </div>
+    <div class="row" style="display: flex; float:right; margin-top: 20px; margin-right: 3px; width: 90px;">
+        <button id="submitButton" type="submit">Save</button>
+    </div>
 </form>
 
 <script src="~/libs/jquery/jquery.js"></script>
 <script src="https://cdn.tiny.cloud/1/s38enmy9tc1mypcddohajut7rcaaau0en8ewgnd574l5szbu/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: 'textarea',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-        ],
-        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    $(document).ready(function () {
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+            setup: function (editor) {
+                editor.on('init', function () {
+                    let content = document.getElementById('CmsViewModel_Description').attributes.value;
+                    if (content !== null && content !== undefined) {
+                        editor.setContent(content.value);
+                    }
+                });
+            },
+        });
     });
 </script>
 <script>
@@ -40,31 +71,16 @@
 
         let isValid = true;
         if ($('#CmsViewModel_Name').val() === '') {
-            alert('Por favor, preencha o campo Title.');
+            alert('Please, fill Title field!');
             isValid = false;
         }
         if (tinymce.get('CmsViewModel_Description').getContent() === '') {
-            alert('Por favor, preencha o campo Description.');
+            alert('Please, fill Description field.');
             isValid = false;
         }
 
         if (isValid) {
-            getValues();
-            $('#CmsViewModel_Name').val($('#CmsViewModel_Name').val());
             $('#editorForm').submit();
         }
     });
-</script>
-<script>
-    function getValues() {
-        let name = document.getElementById('CmsViewModel_Name');
-        let description = document.getElementById('CmsViewModel_Description');
-        let descriptionTiny = tinymce.get('CmsViewModel_Description').getContent();
-
-        name.value = name.value;
-        description.value = descriptionTiny;
-
-        console.log(name.value);
-        console.log(description.value);
-    }
 </script>

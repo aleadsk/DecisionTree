@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TextWebPlugIn.Extensions;
 using TextWebPlugIn.Interfaces.Service;
 using TextWebPlugIn.Interfaces.Service.Dtos;
 using TextWebPlugIn.ViewModels;
@@ -20,20 +21,21 @@ public class EditorModel : PageModel {
         _mapper = mapper;
     }
 
-    public async void OnGet() {
-        //TODO Receber Guid
-        CmsEntityDto? cmsEntityDto = (await _cmsAppService.GetAll()).FirstOrDefault();
+    public async void OnGet(Guid id) {
+        CmsEntityDto cmsEntityDto = new();
 
-        var result = await _cmsAppService.GetCMSContent(cmsEntityDto.Id);
+        if (!id.IsEmpty()) {
+            cmsEntityDto = await _cmsAppService.GetCMSContent(id);
+        }
 
-        if (result is not null) { 
-            CmsViewModel = _mapper.Map<CmsViewModel>(result);
+        if (!cmsEntityDto.Id.IsEmpty()) { 
+            CmsViewModel = _mapper.Map<CmsViewModel>(cmsEntityDto);
         }
     }
 
     public async Task<IActionResult> OnPost() {
         if (!ModelState.IsValid) {
-            return Page();
+            return BadRequest("Fail to save data, your data is not correct!");
         }
 
         if (CmsViewModel is not null) {
