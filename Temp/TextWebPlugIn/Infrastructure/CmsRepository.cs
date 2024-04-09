@@ -7,8 +7,10 @@ namespace TextWebPlugIn.Infrastructure;
 
 public class CmsRepository : ApplicationService, ICmsRepository {
     private readonly IRepository<CmsEntity, Guid> _cmsRepository;
+    private readonly ILogger<CmsRepository> _logger;
 
-    public CmsRepository(IRepository<CmsEntity, Guid> cmsRepository) {
+    public CmsRepository(IRepository<CmsEntity, Guid> cmsRepository, ILogger<CmsRepository> logger) {
+        _logger = logger;
         _cmsRepository = cmsRepository;
     }
 
@@ -16,7 +18,8 @@ public class CmsRepository : ApplicationService, ICmsRepository {
         try {
             return await _cmsRepository.InsertAsync(entity);
         }
-        catch (Exception ex) {
+        catch (Exception ex)                      {
+            _logger.LogError($"Error in Create a new Text: {ex}");
             throw new Exception("Error in Create a new Text", ex);
         }
     }
@@ -25,7 +28,8 @@ public class CmsRepository : ApplicationService, ICmsRepository {
         try {
             return await _cmsRepository.GetListAsync();
         }
-        catch (Exception ex) {
+        catch (Exception ex) {          
+            _logger.LogError($"Error in Get all Texts: {ex}");
             throw new Exception("Error in Get all Texts", ex);
         }
     }
@@ -34,8 +38,9 @@ public class CmsRepository : ApplicationService, ICmsRepository {
         try {
             return await _cmsRepository.GetAsync(x => x.Id == id);
         }
-        catch (Exception ex) {
-            throw new Exception($"Erro in Get id: {id}", ex);
+        catch (Exception ex) {      
+            _logger.LogError($"Error in Get id: {id}: {ex}");
+            throw new Exception($"Error in Get id: {id}", ex);
         }
     }
 
@@ -43,8 +48,9 @@ public class CmsRepository : ApplicationService, ICmsRepository {
         try {
             return await _cmsRepository.UpdateAsync(entity);
         }
-        catch (Exception ex) {
-            throw new Exception("Erro in Update Text", ex);
+        catch (Exception ex) {    
+            _logger.LogError($"Error in Update Text: {ex}");
+            throw new Exception("Error in Update Text", ex);
         }
     }
 }
