@@ -6,19 +6,18 @@
 
 @model EditorModel
 
-<form method="post" id="editorForm">
-    @* @Html.AntiForgeryToken() *@
+<form method="post" id="editorForm" asp-page="Editor">
+    <input type="hidden" name="Id" asp-for="CmsViewModel.Id" value="" id="CmsViewModel_Id" />
     <label for="CmsViewModel_Name">Title</label>
-    <input type="text" asp-for="Mode.CmsViewModel.Name" id="CmsViewModel_Name" />
+    <input type="text" asp-for="CmsViewModel.Name" id="CmsViewModel_Name" value="@Model.CmsViewModel.Name" onchange="getValues()" />
 
     <label for="CmsViewModel_Description">Description</label>
-    <textarea id="CmsViewModel_Description" asp-for="Mode.CmsViewModel.Description"></textarea>
+    <textarea id="CmsViewModel_Description" asp-for="CmsViewModel.Description" value="" onchange="getValues()"></textarea>
 
     <button id="submitButton" type="submit">Submit</button>
 </form>
-@* <input type="hidden" name="__RequestVerificationToken" value=@Html.AntiForgeryToken() /> *@
 
-
+<script src="~/libs/jquery/jquery.js"></script>
 <script src="https://cdn.tiny.cloud/1/s38enmy9tc1mypcddohajut7rcaaau0en8ewgnd574l5szbu/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -34,4 +33,38 @@
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#submitButton').click(function (e) {
+        e.preventDefault();
+        tinymce.triggerSave();
+
+        let isValid = true;
+        if ($('#CmsViewModel_Name').val() === '') {
+            alert('Por favor, preencha o campo Title.');
+            isValid = false;
+        }
+        if (tinymce.get('CmsViewModel_Description').getContent() === '') {
+            alert('Por favor, preencha o campo Description.');
+            isValid = false;
+        }
+
+        if (isValid) {
+            getValues();
+            $('#CmsViewModel_Name').val($('#CmsViewModel_Name').val());
+            $('#editorForm').submit();
+        }
+    });
+</script>
+<script>
+    function getValues() {
+        let name = document.getElementById('CmsViewModel_Name');
+        let description = document.getElementById('CmsViewModel_Description');
+        let descriptionTiny = tinymce.get('CmsViewModel_Description').getContent();
+
+        name.value = name.value;
+        description.value = descriptionTiny;
+
+        console.log(name.value);
+        console.log(description.value);
+    }
+</script>
