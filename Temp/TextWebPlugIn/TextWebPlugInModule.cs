@@ -29,5 +29,9 @@ namespace TextWebPlugIn;
         });
         context.Services.AddScoped<ICmsAppService, CmsAppService>();
         context.Services.AddScoped<ICmsRepository, CmsRepository>();
+        context.Services.AddAutoMapperObjectMapper<TextWebPlugInModule>();
+        Configure<AbpAutoMapperOptions>(options => {
+            options.AddMaps<TextWebPlugInModule>();
+        });
     }
 }

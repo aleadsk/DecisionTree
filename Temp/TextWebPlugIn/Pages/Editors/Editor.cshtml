@@ -8,10 +8,11 @@
 
 <form method="post" id="editorForm">
     @* @Html.AntiForgeryToken() *@
-    <label>Title</label>
-    <input type="text" asp-for="CmsViewModel.Name" id="CmsViewModel.Name" />
+    <label for="CmsViewModel_Name">Title</label>
+    <input type="text" asp-for="Mode.CmsViewModel.Name" id="CmsViewModel_Name" />
 
-    <textarea id="CmsViewModel_Description" asp-for="CmsViewModel.Description"></textarea>
+    <label for="CmsViewModel_Description">Description</label>
+    <textarea id="CmsViewModel_Description" asp-for="Mode.CmsViewModel.Description"></textarea>
 
     <button id="submitButton" type="submit">Submit</button>
 </form>

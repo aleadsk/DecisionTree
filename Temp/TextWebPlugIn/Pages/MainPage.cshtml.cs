@@ -8,25 +8,21 @@ using TextWebPlugIn.ViewModels;
 namespace TextWebPlugIn.Pages;
 public class MainPageModel : PageModel {
     private readonly ICmsAppService _cmsAppService;
+    private readonly IMapper _mapper;
 
     [BindProperty]
-    public List<CmsViewModel>? cmsViewModelList { get; set; } = new();
+    public List<CmsViewModel>? CmsViewModelList { get; set; } = new();
 
-    public MainPageModel(ICmsAppService cmsAppService) {
+    public MainPageModel(ICmsAppService cmsAppService, IMapper mapper) {
         _cmsAppService = cmsAppService;
+        _mapper = mapper;
     }
 
     public async void OnGet() { 
         List<CmsEntityDto> cmsEntityList = await _cmsAppService.GetAll();
 
-        foreach (var dto in cmsEntityList) {
-            var viewModel = new CmsViewModel
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                Description = dto.Description
-            };
-            cmsViewModelList.Add(viewModel);
+        if (cmsEntityList is not null && cmsEntityList.Count > 0) { 
+            CmsViewModelList = _mapper.Map<List<CmsViewModel>>(cmsEntityList);
         }
     }
 }
