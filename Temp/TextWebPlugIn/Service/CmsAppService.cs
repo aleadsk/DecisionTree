@@ -3,6 +3,7 @@ using TextWebPlugIn.Interfaces.Repository;
 using TextWebPlugIn.Interfaces.Service;
 using TextWebPlugIn.Interfaces.Service.Dtos;
 using TextWebPlugIn.Model;
+using TextWebPlugIn.Extensions;
 
 namespace TextWebPlugIn.Service;
 
@@ -33,13 +34,12 @@ public class CmsAppService : ICmsAppService {
 	public async Task<CmsEntityDto> InsertOrUpdateCMSContent(CmsEntityDto cmsEntityDto) {
 		CmsEntity cmsEntity = _mapper.Map<CmsEntity>(cmsEntityDto);
 
-		await _cmsRepository.Create(cmsEntity);
-		/*
-        if (cmsEntity.Id is Guid.Empty()) {//Criar extensão
+		if (cmsEntity.Id.IsEmpty()) {
 			cmsEntity = await _cmsRepository.Create(cmsEntity);
-        } else {
+		}
+		else {
 			cmsEntity = await _cmsRepository.Update(cmsEntity);
-		}         */
+		}
 
 		return cmsEntityDto;
 	}
