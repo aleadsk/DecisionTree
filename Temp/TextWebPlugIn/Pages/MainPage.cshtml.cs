@@ -11,18 +11,22 @@ public class MainPageModel : PageModel {
     private readonly IMapper _mapper;
 
     [BindProperty]
-    public List<CmsViewModel>? CmsViewModelList { get; set; } = new();
+    public List<CmsViewModel>? CmsViewModelList { get; set; }
 
     public MainPageModel(ICmsAppService cmsAppService, IMapper mapper) {
         _cmsAppService = cmsAppService;
         _mapper = mapper;
     }
 
-    public async void OnGet() { 
+    public async Task OnGet() { 
         List<CmsEntityDto> cmsEntityList = await _cmsAppService.GetAll();
 
         if (cmsEntityList is not null && cmsEntityList.Count > 0) { 
             CmsViewModelList = _mapper.Map<List<CmsViewModel>>(cmsEntityList);
+
+
         }
+
+        RedirectToPage("./mainpage");
     }
 }

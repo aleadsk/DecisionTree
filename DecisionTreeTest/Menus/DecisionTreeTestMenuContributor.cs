@@ -33,7 +33,7 @@ public class DecisionTreeTestMenuContributor : IMenuContributor
 				DecisionTreeTestMenus.Editor,
 				l["Menu:Editor"],
 				"/editors/editor",
-				icon: "fas fa-home",
+				icon: "fas fa-pencil-alt",
 				order: 1
 			)
 		);

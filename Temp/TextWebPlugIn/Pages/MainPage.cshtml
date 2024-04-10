@@ -20,13 +20,20 @@
         <h5 class="card-title">
             Choose your text to edit or create a new text:
         </h5>
+        <div class="text-right" style="float: right;">
+            <a href="/Editors/Editor" class="btn btn-primary">New Text Page</a>
+        </div>
     </div>
     <div class="card-body">
-        @foreach (var cmsViewModel in Model.CmsViewModelList) {
-            <div>
-                <span class="glyphicon glyphicon-arrow-right"></span>
-                <a href="/Editors/Editor/@cmsViewModel.Id">@cmsViewModel.Name</a>
-            </div>
+        @if (Model.CmsViewModelList is not null && Model.CmsViewModelList.Count > 0)
+        {
+            @foreach (var cmsViewModel in Model.CmsViewModelList)
+            {
+                <div>
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    <a href="/Editors/Editor/@cmsViewModel.Id">@cmsViewModel.Name</a>
+                </div>
+            }
         }
     </div>
 </div>
