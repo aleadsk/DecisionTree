@@ -32,9 +32,9 @@ public class CmsAppService : ICmsAppService {
     }
 
 	public async Task<CmsEntityDto> InsertOrUpdateCMSContent(CmsEntityDto cmsEntityDto) {
-		CmsEntity cmsEntity = _mapper.Map<CmsEntity>(cmsEntityDto);
+		CmsEntity cmsEntity = _mapper.Map<CmsEntity>(cmsEntityDto); 
 
-		if (cmsEntity.Id.IsEmpty()) {
+        if (cmsEntity.Id.IsEmpty()) {
 			cmsEntity = await _cmsRepository.Create(cmsEntity);
 		}
 		else {

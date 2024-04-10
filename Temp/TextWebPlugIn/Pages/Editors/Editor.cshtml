@@ -83,4 +83,9 @@
             $('#editorForm').submit();
         }
     });
+
+    function showErrorModal(errorMessage) {
+        $('#errorMessage').text(errorMessage);
+        $('#errorModal').modal('show');
+    }
 </script>

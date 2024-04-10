@@ -11,6 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextPlugIn", "Temp\TextPlug
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextWebPlugIn", "Temp\TextWebPlugIn\TextWebPlugIn.csproj", "{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{68818F76-F8EE-440C-AA78-7C057AA03896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServiceTest", "AppServiceTest\AppServiceTest.csproj", "{465FF207-381E-411D-9465-9D41D4F93E59}"
+	ProjectSection(ProjectDependencies) = postProject
+		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA} = {941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +36,10 @@ Global
 		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{465FF207-381E-411D-9465-9D41D4F93E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465FF207-381E-411D-9465-9D41D4F93E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465FF207-381E-411D-9465-9D41D4F93E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465FF207-381E-411D-9465-9D41D4F93E59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{829B81B7-EEB5-49B4-B8EB-E02B0C68ED0A} = {B4FCE16E-FA95-42FF-BE8C-F4D9E4EE90E6}
 		{941E8180-C72A-4E1C-96F9-4CB3F63F1EEA} = {B4FCE16E-FA95-42FF-BE8C-F4D9E4EE90E6}
+		{465FF207-381E-411D-9465-9D41D4F93E59} = {68818F76-F8EE-440C-AA78-7C057AA03896}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63E2660C-C1D9-4768-90FD-289F36581842}

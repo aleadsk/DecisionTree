@@ -11,7 +11,8 @@ namespace TextWebPlugIn.Pages.Editors;
 [IgnoreAntiforgeryToken]
 public class EditorModel : PageModel {
     [BindProperty]
-    public CmsViewModel? CmsViewModel { get; set; } = new();
+    public CmsViewModel? CmsViewModel { get; set; } = new(); 
+    public bool ShowErrorModal { get; set; }
 
     private readonly ICmsAppService _cmsAppService;
     private readonly IMapper _mapper;
@@ -36,6 +37,12 @@ public class EditorModel : PageModel {
     public async Task<IActionResult> OnPost() {
         if (!ModelState.IsValid) {
             return BadRequest("Fail to save data, your data is not correct!");
+        }
+
+        string errorMessage; 
+        if (!TextExtensions.ValidateMaxLength(CmsViewModel.Description, 10000, out errorMessage)) {
+            ShowErrorModal = true; 
+            return Page();
         }
 
         if (CmsViewModel is not null) {
