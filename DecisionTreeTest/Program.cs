@@ -1,12 +1,6 @@
-using Autofac.Core;
 using DecisionTreeTest.Data;
-using DecisionTreeTest.Infrastructure;
-using DecisionTreeTest.Interfaces.Repository;
-using DecisionTreeTest.Interfaces.Service;
-using DecisionTreeTest.Services;
 using Serilog;
 using Serilog.Events;
-using TextWebPlugIn;
 using Volo.Abp.Data;
 using Volo.Abp.Modularity.PlugIns;
 
@@ -46,8 +40,6 @@ public class Program
                 options.AddDefaultRepositories(includeAllEntities: true);
 			});
 			builder.Services.AddApplicationInsightsTelemetry();
-            builder.Services.AddScoped<ICmsAppService, CmsAppService>();
-			builder.Services.AddScoped<ICmsRepository, CmsRepository>();
 			builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
@@ -55,7 +47,6 @@ public class Program
             {
                 builder.Services.AddDataMigrationEnvironment();
             }
-            //await builder.AddApplicationAsync<DecisionTreeTestModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync(); 
 
