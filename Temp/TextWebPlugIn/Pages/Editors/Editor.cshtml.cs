@@ -39,11 +39,11 @@ public class EditorModel : PageModel {
             return BadRequest("Fail to save data, your data is not correct!");
         }
 
-        string errorMessage; 
-        if (!TextExtensions.ValidateMaxLength(CmsViewModel.Description, 10000, out errorMessage)) {
-            ShowErrorModal = true; 
-            return Page();
-        }
+        //string errorMessage; 
+        //if (!TextExtensions.ValidateMaxLength(CmsViewModel.Description, 10000, out errorMessage)) {
+        //    ShowErrorModal = true; 
+        //    return Page();
+        //}
 
         if (CmsViewModel is not null) {
             CmsEntityDto cmsEntityDto = _mapper.Map<CmsEntityDto>(CmsViewModel);
