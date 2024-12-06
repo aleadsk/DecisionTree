@@ -1,6 +1,4 @@
 # DecisionTreeTest
-## Link to access record
-https://1drv.ms/v/s!AiOOk_ydXjWghLou-dCduaxDEyGwRQ?e=uZfRHW
 ## About this solution
 
 This is a minimalist, non-layered startup solution with the ABP Framework. All the fundamental ABP modules are already installed. 
